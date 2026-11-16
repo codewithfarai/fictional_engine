@@ -1,0 +1,41 @@
+{
+  "name": "Infra & Python 3.14 Dev",
+  "image": "mcr.microsoft.com/devcontainers/python:3.14-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/terraform:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": "true",
+      "configureZshAsDefaultShell": "true"
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    },
+    "ghcr.io/anthropics/devcontainer-features/claude-code:1": {},
+    "ghcr.io/devcontainers/features/copilot-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "hashicorp.terraform",
+        "redhat.ansible",
+        "esbenp.prettier-vscode",
+        "anthropic.claude-code",
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "ms-ossdata.vscode-pgsql",
+        "Redis.redis-for-vscode"
+      ]
+    }
+  },
+  "updateContentCommand": "sudo apt-get update && sudo apt-get install -y make && pip install --no-cache-dir uv",
+  "postCreateCommand": "sudo chown -R vscode:vscode /home/vscode/.claude && uv tool install ansible-core --with ansible && uv tool install pre-commit && pre-commit install",
+  "remoteUser": "vscode",
+  "mounts": [
+    "source=claude-code-config-${devcontainerId},target=/home/vscode/.claude,type=volume"
+  ]
+}
